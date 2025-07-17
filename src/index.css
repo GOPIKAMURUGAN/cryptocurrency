@@ -1,0 +1,16 @@
+/* index.css or App.css */
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #178ca6; /* or match your dark theme */
+  overflow-x: hidden;
+}
+.card {
+  border-radius: 1rem;
+  transition: transform 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
