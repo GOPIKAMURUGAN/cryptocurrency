@@ -1,0 +1,66 @@
+[
+    {
+        "slug": "what-is-bitcoin",
+        "title": "What is Bitcoin?",
+        "summary": "An easy guide to understanding Bitcoin.",
+        "date": "July 15, 2025",
+        "image": "/images/bitcoin.jpg",
+        "content": "Bitcoin is a digital currency that operates without a central authority. It uses blockchain technology to enable peer-to-peer transactions securely and transparently. It's often referred to as 'digital gold'."
+    },
+    {
+        "slug": "ethereum-guide",
+        "title": "Understanding Ethereum",
+        "summary": "What makes Ethereum different from Bitcoin?",
+        "date": "July 16, 2025",
+        "image": "/images/ethereum.jpg",
+        "content": "Ethereum is a blockchain platform that allows developers to build smart contracts and decentralized applications (dApps). While Bitcoin is mainly used as digital money, Ethereum enables programmable money and logic."
+    },
+    {
+        "slug": "what-is-xrp",
+        "title": "What is XRP?",
+        "summary": "XRP aims to make global payments faster and cheaper.",
+        "date": "July 19, 2025",
+        "image": "/images/xrp.jpg",
+        "content": "XRP is a digital currency created by Ripple Labs to facilitate fast, low-cost international money transfers. Unlike many cryptocurrencies, XRP doesn't rely on mining, making transactions efficient and eco-friendly."
+    },
+    {
+        "slug": "what-is-bnb",
+        "title": "What is BNB (Binance Coin)?",
+        "summary": "BNB powers the Binance ecosystem and more.",
+        "date": "July 20, 2025",
+        "image": "/images/bnb.jpg",
+        "content": "BNB, originally created as a utility token for discounted trading fees on Binance, has grown into a multi-purpose token used for transaction fees, staking, and powering smart contracts on the BNB Chain."
+    },
+    {
+        "slug": "what-is-tether",
+        "title": "What is Tether (USDT)?",
+        "summary": "A stablecoin pegged to the US Dollar.",
+        "date": "July 21, 2025",
+        "image": "/images/tether.jpg",
+        "content": "Tether (USDT) is a stablecoin designed to maintain a 1:1 peg with the US dollar. It's widely used in crypto trading to reduce volatility and provide a stable store of value within the cryptocurrency ecosystem."
+    },
+    {
+        "slug": "what-is-solana",
+        "title": "What is Solana?",
+        "summary": "A high-speed blockchain for decentralized apps.",
+        "date": "July 22, 2025",
+        "image": "/images/solana.jpg",
+        "content": "Solana is a high-performance blockchain known for its fast transaction speeds and low fees. It supports decentralized applications (dApps) and DeFi platforms, and is often compared with Ethereum for scalability."
+    },
+    {
+        "slug": "what-is-usdc",
+        "title": "What is USD Coin (USDC)?",
+        "summary": "A regulated and transparent stablecoin alternative.",
+        "date": "July 23, 2025",
+        "image": "/images/usdc.jpg",
+        "content": "USDC is a fully-backed stablecoin issued by regulated financial institutions and pegged 1:1 to the US dollar. It's used widely in DeFi, crypto trading, and cross-border payments."
+    },
+    {
+        "slug": "what-is-tron",
+        "title": "What is TRON (TRX)?",
+        "summary": "A blockchain platform for content sharing and smart contracts.",
+        "date": "July 24, 2025",
+        "image": "/images/tron.jpg",
+        "content": "TRON is a blockchain-based operating system designed to create a decentralized internet. It enables high-throughput smart contracts and is known for hosting entertainment and content-sharing dApps."
+    }
+]

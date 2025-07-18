@@ -1,0 +1,105 @@
+/* Outer container for toggle + calculator */
+.calculator-wrapper {
+  max-width: 700px;
+  margin: 40px auto;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Top toggle button row */
+.tab-buttons {
+  display: flex;
+  background: #f0f0f0;
+  border-bottom: 1px solid #ddd;
+}
+
+.tab-buttons button {
+  flex: 1;
+  padding: 14px 0;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.tab-buttons button:hover {
+  background-color: #eaeaea;
+}
+
+.tab-buttons .active {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Calculator inner content */
+.calculator-box {
+  padding: 24px;
+}
+
+/* Slider inputs group */
+.slider-group {
+  margin-bottom: 20px;
+}
+
+.slider-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.slider-group input[type="range"] {
+  width: 100%;
+  accent: color #333;
+}
+
+/* Result box */
+.result {
+  margin-top: 30px;
+  padding: 16px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.result h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #444;
+}
+
+.result p {
+  margin: 6px 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Doughnut chart */
+.result-chart {
+  margin-top: 20px;
+  max-width: 260px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .calculator-box {
+    padding: 16px;
+  }
+
+  .tab-buttons button {
+    font-size: 14px;
+  }
+
+  .result p {
+    font-size: 14px;
+  }
+}

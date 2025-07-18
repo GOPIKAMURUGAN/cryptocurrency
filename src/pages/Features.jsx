@@ -1,110 +1,164 @@
-import React, { useState } from 'react';
-import { FaSearch } from 'react-icons/fa';
+import React, { useState, useEffect } from "react";
+import { fetchCoins } from "../services/cryptoAPI";
+import CalculatorTabs from "../components/CalculatorTabs";
+// import SIPCalculator from "../components/calculators/SIPCalculator";
+// import LumpsumCalculator from "../components/calculators/LumpsumCalculator";
 
-const coins = [
-  {
-    id: 1,
-    name: 'Ethereum',
-    price: '$168,331.09',
-    change: '+45%',
-    icon: '🟢',
-    trend: 'up',
-  },
-  {
-    id: 2,
-    name: 'Bitcoin',
-    price: '$24,098',
-    change: '+45%',
-    icon: '🟠',
-    trend: 'up',
-  },
-  {
-    id: 3,
-    name: 'Litecoin',
-    price: '$667,224',
-    change: '-46%',
-    icon: '🔵',
-    trend: 'down',
-  },
-  {
-    id: 4,
-    name: 'Monero',
-    price: '$667,224',
-    change: '+45%',
-    icon: '🟣',
-    trend: 'up',
-  },
-];
+const Features = ({ currency }) => {
+  const [coins, setCoins] = useState([]);
+  // const [currency] = useState("usd");
+  const currencySymbol =
+    currency === "usd" ? "$" : currency === "eur" ? "€" : "₹";
+  const [filter, setFilter] = useState("All");
 
-const Feature = () => {
-  const [query, setQuery] = useState('');
-  const [selected, setSelected] = useState(null);
+  const investments = [
+    {
+      company: "TCS",
+      coinId: "bitcoin",
+      category: "Top",
+      amountInvested: 1000,
+      
+    },
+    {
+      company: "Wipro",
+      coinId: "ethereum",
+      category: "Mid",
+      amountInvested: 700,
+      
+    },
+    {
+      company: "Infosys",
+      coinId: "ripple",
+      category: "Small",
+      amountInvested: 300,
+      
+    },
+    {
+      company: "HCL",
+      coinId: "dogecoin",
+      category: "Top",
+      amountInvested: 500,
+      
+    },
+    {
+      company: "Tech Mahindra",
+      coinId: "cardano",
+      category: "Mid",
+      amountInvested: 400,
+      
+    },
+  ];
 
-  const filteredCoins = coins.filter((coin) =>
-    coin.name.toLowerCase().includes(query.toLowerCase())
-  );
+  useEffect(() => {
+    const loadCoins = async () => {
+      const data = await fetchCoins(currency);
+      setCoins(data);
+    };
+    loadCoins();
+  }, [currency]);
+
+  const getCoinData = (coinId) => {
+    if (!coins || coins.length === 0) return null;
+    return coins.find((coin) => coin.id === coinId);
+  };
+
+  const filteredInvestments =
+    filter === "All"
+      ? investments
+      : investments.filter((inv) => inv.category === filter);
 
   return (
-    <div className="container-fluid position-relative max-vh-250 bg-dark text-white py-5">
-  <div className="row justify-content-center">
-    <div className="col-12 col-xl-10">
-      <h1 className="display-5 mb-4 text-center">Feature Page</h1>
+    <div className="container my-5" style={{ color: "black" }}>
+      <h2 className="mb-4">Investment Insights</h2>
 
-      {/* Search Box */}
-      <div className="mb-4 mx-auto" style={{ maxWidth: '400px' }}>
-        <div className="input-group">
-          <span className="input-group-text bg-secondary border-0 text-light">
-            <FaSearch />
-          </span>
-          <input
-            type="text"
-            className="form-control bg-secondary text-light border-0"
-            placeholder="Search coins..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-        </div>
+      {/* Dropdown Filter */}
+      <div className="mb-4">
+        <select
+          className="form-select"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        >
+          <option value="All">All Categories</option>
+          <option value="Top">Top Companies</option>
+          <option value="Mid">Mid Companies</option>
+          <option value="Small">Small Companies</option>
+        </select>
       </div>
 
-      {/* Coin Cards */}
-      <div className="row g-4">
-        {filteredCoins.map((coin) => (
-          <div className="col-12 col-sm-6 col-md-3" key={coin.id}>
-            <div
-              className="card h-100 text-light bg-secondary border-0 shadow coin-card"
-              onClick={() => setSelected(coin)}
-              style={{ cursor: 'pointer', transition: 'transform 0.2s' }}
-              onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
-              onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
-            >
-              <div className="card-body text-center">
-                <div className="display-4">{coin.icon}</div>
-                <h5 className="card-title mt-2">{coin.name}</h5>
-                <p className="card-text h5">{coin.price}</p>
-                <p className={`card-text ${coin.trend === 'up' ? 'text-success' : 'text-danger'}`}>
-                  {coin.change} This week
-                </p>
+      {/* Cards Section */}
+      <div className="row">
+        {filteredInvestments.map((entry, idx) => {
+          const coin = getCoinData(entry.coinId);
+
+          if (!coin || !coin.current_price) {
+            console.warn("Missing coin or price:", entry.coinId, coin);
+            return null;
+          }
+
+          const coinsOwned = entry.amountInvested / coin.current_price;
+          const currentValue = coinsOwned * coin.current_price;
+          const gainLoss = currentValue - entry.amountInvested;
+
+          console.log({
+            coinId: entry.coinId,
+            coinName: coin.name,
+            invested: entry.amountInvested,
+            currentPrice: coin.current_price,
+            coinsOwned,
+            currentValue,
+            gainLoss,
+          });
+
+          return (
+            <div className="col-md-4 mb-4" key={idx}>
+              <div
+                className="card text-white"
+                style={{ backgroundColor: "#1e1e2f", borderRadius: "12px" }}
+              >
+                <div className="card-body">
+                  <div className="d-flex align-items-center mb-2">
+                    <img
+                      src={coin.image}
+                      alt={coin.name}
+                      width="30"
+                      height="30"
+                      className="me-2"
+                    />
+                    <h5 className="card-title mb-0">{entry.company}</h5>
+                  </div>
+                  <p className="mb-1">
+                    <strong>Coin:</strong> {coin.name}
+                  </p>
+                  <p className="mb-1">
+                    <strong>Invested:</strong> {currencySymbol}
+                    {entry.amountInvested.toFixed(2)}
+                  </p>
+                  <p className="mb-1">
+                    <strong>Current Value:</strong> {currencySymbol}
+                    {currentValue.toFixed(2)}
+                  </p>
+                  <p className="mb-1">
+                    <strong>Profit:</strong>{" "}
+                    <span
+                      style={{ color: gainLoss >= 0 ? "lightgreen" : "red" }}
+                    >
+                      {currencySymbol}
+                      {gainLoss.toFixed(2)}
+                    </span>
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
+      <CalculatorTabs />
+      {/* <SIPCalculator />
+  <LumpsumCalculator /> */}
+  
 
-      {/* Selected Coin Details */}
-      {selected && (
-        <div className="mt-5 p-4 bg-secondary rounded shadow">
-          <h2 className="h4 mb-3">{selected.name} Statistics</h2>
-          <p className="mb-1">💰 Price: <strong>{selected.price}</strong></p>
-          <p className="mb-1">📊 Weekly Change: <strong>{selected.change}</strong></p>
-          <p className="mb-1">📈 Trend: <strong>{selected.trend === 'up' ? 'Up 📈' : 'Down 📉'}</strong></p>
-        </div>
-      )}
     </div>
-  </div>
-</div>
-
-
   );
 };
 
-export default Feature;
+export default Features;

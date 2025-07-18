@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import SearchBar from "../components/SearchBar";
 import CoinTable from "../components/CoinTable";
 import { fetchCoins } from "../services/cryptoAPI";
+// import InvestmentTable from "../components/InvestmentTable";
+
 
 function Home({ currency }) {
   const [coins, setCoins] = useState([]);
@@ -41,6 +43,11 @@ function Home({ currency }) {
             currencySymbol={currencySymbol}
           />
         </div>
+        
+
+
+
+
       </div>
     </div>
   );

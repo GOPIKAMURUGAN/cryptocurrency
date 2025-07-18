@@ -1,85 +1,121 @@
-import React from "react";
+import React, { useState } from "react";
 
-const pricingPlans = [
-  {
-    title: "Basic",
-    price: "$19/mo",
-    features: [
-      { label: "1 User", included: true },
-      { label: "5GB Storage", included: true },
-      { label: "Community Support", included: true },
-      { label: "Advanced Analytics", included: false },
-    ],
-    buttonText: "Get Started",
-    highlight: false,
-  },
-  {
-    title: "Pro",
-    price: "$49/mo",
-    features: [
-      { label: "5 Users", included: true },
-      { label: "50GB Storage", included: true },
-      { label: "Priority Support", included: true },
-      { label: "Advanced Analytics", included: true },
-    ],
-    buttonText: "Recommended",
-    highlight: true,
-  },
-  {
-    title: "Enterprise",
-    price: "$99/mo",
-    features: [
-      { label: "Unlimited Users", included: true },
-      { label: "1TB Storage", included: true },
-      { label: "24/7 Support", included: true },
-      { label: "Custom Integrations", included: true },
-    ],
-    buttonText: "Contact Us",
-    highlight: false,
-  },
-];
+
+import { FaCheck } from "react-icons/fa";
 
 const Pricing = () => {
+  const [billingCycle, setBillingCycle] = useState("monthly");
+  
+
+
+  const pricingData = {
+    monthly: [
+      {
+        title: "Free",
+        price: "$0",
+        features: ["1 user", "Basic support", "Email reports"],
+        buttonText: "Buy Now",
+      },
+      {
+        title: "Professional",
+        price: "$29",
+        features: ["5 users", "Priority support", "Advanced reports"],
+        buttonText: "Buy Now",
+        highlight: true,
+      },
+      {
+        title: "Enterprise",
+        price: "$99",
+        features: ["Unlimited users", "Dedicated support", "Custom reports"],
+        buttonText: "Buy Now",
+      },
+    ],
+    yearly: [
+      {
+        title: "Free",
+        price: "$0",
+        features: ["1 user", "Basic support", "Email reports"],
+        buttonText: "Buy Now",
+      },
+      {
+        title: "Professional",
+        price: "$290",
+        features: ["5 users", "Priority support", "Advanced reports"],
+        buttonText: "Buy Now",
+        highlight: true,
+      },
+      {
+        title: "Enterprise",
+        price: "$990",
+        features: ["Unlimited users", "Dedicated support", "Custom reports"],
+        buttonText: "Buy Now",
+      },
+    ],
+  };
+
+  const plans = pricingData[billingCycle];
+
   return (
-    <div className="container py-5 bg-dark text-white">
-      <h1 className="text-center mb-5">Our Pricing Plans</h1>
-      <div className="row g-4">
-        {pricingPlans.map((plan, index) => (
-          <div className="col-12 col-md-6 col-lg-4" key={index}>
-            <div
-              className={`card h-100 shadow border-0 ${
-                plan.highlight ? "bg-primary text-white" : "bg-secondary"
-              }`}
-            >
-              <div className="card-body d-flex flex-column justify-content-between">
-                <div>
-                  <h4 className="card-title text-center">{plan.title}</h4>
-                  <h2 className="text-center my-3">{plan.price}</h2>
-                  <ul className="list-unstyled">
-                    {plan.features.map((feat, i) => (
-                      <li key={i} className="mb-2 d-flex align-items-center">
-                        <span className="me-2">
-                          {feat.included ? "✅" : "❌"}
-                        </span>
-                        {feat.label}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="text-center mt-4">
-                  <button
-                    className={`btn ${
-                      plan.highlight ? "btn-light text-dark" : "btn-outline-light"
-                    } w-100`}
-                  >
-                    {plan.buttonText}
-                  </button>
-                </div>
-              </div>
-            </div>
+    <div className="pricing-wrapper">
+      <h1 className="pricing-title">Pricing Plans</h1>
+
+      
+      <div className="toggle-container">
+        <span className={billingCycle === "monthly" ? "active" : ""}>
+          Monthly
+        </span>
+        <label className="switch">
+          <input
+            type="checkbox"
+            onChange={() =>
+              setBillingCycle(billingCycle === "monthly" ? "yearly" : "monthly")
+            }
+          />
+          <span className="slider round"></span>
+        </label>
+        <span className={billingCycle === "yearly" ? "active" : ""}>
+          Yearly
+        </span>
+      </div>
+
+      <div className="pricing-cards">
+        {plans.map((plan, index) => (
+          <div
+            key={index}
+            className={`card ${plan.highlight ? "card-highlight" : ""}`}
+          >
+            {billingCycle === "yearly" && plan.title === "Professional" && (
+              <div className="badge-discount">Save 20%</div>
+            )}
+
+            <h3 className="plan-title">{plan.title}</h3>
+            <p className="plan-price">
+              <span className="price-animate">{plan.price}</span>
+              <span>/ {billingCycle === "monthly" ? "mo" : "yr"}</span>
+            </p>
+
+            <hr />
+            <ul className="plan-features">
+              {plan.features.map((feat, i) => (
+                <li key={i}>
+                  <FaCheck className="check-icon" /> {feat}
+                </li>
+              ))}
+            </ul>
+            <button className="plan-button">{plan.buttonText}</button>
           </div>
         ))}
       </div>
+            <footer className="contact-footer">
+        <h2>Contact Us</h2>
+        <form className="contact-form">
+          <input type="text" placeholder="Your Name" required />
+          <input type="email" placeholder="Your Email" required />
+          <textarea placeholder="Your Message" rows="4" required />
+          <button type="submit">Send Message</button>
+        </form>
+      </footer>
+
     </div>
   );
 };
