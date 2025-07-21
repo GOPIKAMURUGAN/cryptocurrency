@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom';
 import { FaBitcoin } from 'react-icons/fa';
-import { useState } from 'react';
-import AuthForm from './AuthForm'; // Make sure this path is correct
+
 
 function Navbar({ currency, setCurrency }) {
-  const [showAuth, setShowAuth] = useState(false);
+ 
 
   return (
     <>
@@ -36,28 +35,12 @@ function Navbar({ currency, setCurrency }) {
               <option value="usd">USD</option>
               <option value="eur">EUR</option>
             </select>
-            <button className="btn btn-outline-light" onClick={() => setShowAuth(true)}>
-              Signup
-            </button>
+            
           </div>
         </div>
       </nav>
 
-      {/* Modal for Auth Form */}
-      {showAuth && (
-        <div className="modal-backdrop-custom">
-          <div className="modal-content-custom">
-            <button
-              className="btn btn-sm btn-danger close-btn"
-              onClick={() => setShowAuth(false)}
-            >
-              ×
-            </button>
-            <AuthForm onLoginSuccess={() => setShowAuth(false)} />
-
-          </div>
-        </div>
-      )}
+      
     </>
   );
 }

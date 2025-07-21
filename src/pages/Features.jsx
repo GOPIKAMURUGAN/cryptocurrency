@@ -10,42 +10,42 @@ const Features = ({ currency }) => {
   const [filter, setFilter] = useState("All");
 
   const investments = [
-    {
-      company: "TCS",
-      coinId: "bitcoin",
-      category: "Top",
-      amountInvested: 1000,
-      
-    },
-    {
-      company: "Wipro",
-      coinId: "ethereum",
-      category: "Mid",
-      amountInvested: 700,
-      
-    },
-    {
-      company: "Infosys",
-      coinId: "ripple",
-      category: "Small",
-      amountInvested: 300,
-      
-    },
-    {
-      company: "HCL",
-      coinId: "dogecoin",
-      category: "Top",
-      amountInvested: 500,
-      
-    },
-    {
-      company: "Tech Mahindra",
-      coinId: "cardano",
-      category: "Mid",
-      amountInvested: 400,
-      
-    },
-  ];
+  {
+    company: "TCS",
+    coinId: "bitcoin",
+    category: "Top",
+    amountInvested: 1000,
+    initialPrice: 25000, 
+  },
+  {
+    company: "Wipro",
+    coinId: "ethereum",
+    category: "Mid",
+    amountInvested: 700,
+    initialPrice: 250, 
+  },
+  {
+    company: "Infosys",
+    coinId: "ripple",
+    category: "Small",
+    amountInvested: 300,
+    initialPrice: 450, 
+  },
+  {
+    company: "HCL",
+    coinId: "dogecoin",
+    category: "Top",
+    amountInvested: 500,
+    initialPrice: 0.05, 
+  },
+  {
+    company: "Tech Mahindra",
+    coinId: "cardano",
+    category: "Mid",
+    amountInvested: 400,
+    initialPrice: 0.30, 
+  },
+];
 
   useEffect(() => {
     const loadCoins = async () => {
@@ -93,7 +93,7 @@ const Features = ({ currency }) => {
             return null;
           }
 
-          const coinsOwned = entry.amountInvested / coin.current_price;
+          const coinsOwned = entry.amountInvested / entry.initialPrice;
           const currentValue = coinsOwned * coin.current_price;
           const gainLoss = currentValue - entry.amountInvested;
 
