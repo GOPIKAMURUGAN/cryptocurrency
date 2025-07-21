@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SearchBar from "../components/SearchBar";
 import CoinTable from "../components/CoinTable";
 import { fetchCoins } from "../services/cryptoAPI";
-// import InvestmentTable from "../components/InvestmentTable";
+
 
 
 function Home({ currency }) {

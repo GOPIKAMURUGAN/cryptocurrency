@@ -4,13 +4,13 @@ import {
   Chart as ChartJS,
   ArcElement,
   Tooltip,
-  Legend
+  Legend,
 } from "chart.js";
 import "./Calculator.css";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-function SIPCalculator() {
+function SIPCalculator({ currency }) {
   const [monthlyInvestment, setMonthlyInvestment] = useState(1000);
   const [rate, setRate] = useState(12);
   const [years, setYears] = useState(10);
@@ -18,10 +18,26 @@ function SIPCalculator() {
   const [investedAmount, setInvestedAmount] = useState(0);
   const [gain, setGain] = useState(0);
 
+  // ✅ Get the symbol based on the currency
+  const getCurrencySymbol = (currencyCode) => {
+    switch (currencyCode?.toLowerCase()) {
+      case "usd":
+        return "$";
+      case "eur":
+        return "€";
+      case "inr":
+      default:
+        return "₹";
+    }
+  };
+
+  const symbol = getCurrencySymbol(currency);
+
   useEffect(() => {
     const months = years * 12;
     const r = rate / 100 / 12;
-    const futureValue = monthlyInvestment * ((Math.pow(1 + r, months) - 1) / r) * (1 + r);
+    const futureValue =
+      monthlyInvestment * ((Math.pow(1 + r, months) - 1) / r) * (1 + r);
     const totalInvested = monthlyInvestment * months;
     const totalGain = futureValue - totalInvested;
 
@@ -36,9 +52,9 @@ function SIPCalculator() {
       {
         data: [investedAmount, gain],
         backgroundColor: ["#007bff", "#ffc107"],
-        borderWidth: 1
-      }
-    ]
+        borderWidth: 1,
+      },
+    ],
   };
 
   return (
@@ -46,7 +62,10 @@ function SIPCalculator() {
       <h2>SIP Investment Calculator</h2>
 
       <div className="slider-group">
-        <label>Monthly SIP Amount: ₹{monthlyInvestment.toLocaleString()}</label>
+        <label>
+          Monthly SIP Amount: {symbol}
+          {monthlyInvestment.toLocaleString()}
+        </label>
         <input
           type="range"
           min="500"
@@ -83,9 +102,18 @@ function SIPCalculator() {
 
       <div className="result">
         <h3>Expected Returns</h3>
-        <p>Total Value: ₹{finalAmount.toFixed(2).toLocaleString()}</p>
-        <p>Invested Amount: ₹{investedAmount.toFixed(2).toLocaleString()}</p>
-        <p>Profit Gained: ₹{gain.toFixed(2).toLocaleString()}</p>
+        <p>
+          Total Value: {symbol}
+          {finalAmount.toFixed(2).toLocaleString()}
+        </p>
+        <p>
+          Invested Amount: {symbol}
+          {investedAmount.toFixed(2).toLocaleString()}
+        </p>
+        <p>
+          Profit Gained: {symbol}
+          {gain.toFixed(2).toLocaleString()}
+        </p>
 
         <div className="result-chart">
           <Doughnut
@@ -98,11 +126,11 @@ function SIPCalculator() {
                   position: "bottom",
                   labels: {
                     font: {
-                      size: 12
-                    }
-                  }
-                }
-              }
+                      size: 12,
+                    },
+                  },
+                },
+              },
             }}
             style={{ width: "250px", height: "250px" }}
           />

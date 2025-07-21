@@ -1,4 +1,4 @@
-// src/services/cryptoAPI.js
+
 
 export const fetchCoins = async (currency = "usd") => {
   try {

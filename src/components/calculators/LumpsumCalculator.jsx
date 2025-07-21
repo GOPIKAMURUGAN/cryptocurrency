@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Doughnut } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  ArcElement,
-  Tooltip,
-  Legend
-} from "chart.js";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import "./Calculator.css";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -19,12 +14,12 @@ function LumpsumCalculator({ currency }) {
 
   // Helper function to get currency symbol
   const getCurrencySymbol = (currency) => {
-    switch (currency) {
-      case "USD":
+    switch (currency?.toLowerCase()) {
+      case "usd":
         return "$";
-      case "EUR":
+      case "eur":
         return "€";
-      case "INR":
+      case "inr":
       default:
         return "₹";
     }
@@ -54,7 +49,10 @@ function LumpsumCalculator({ currency }) {
       <h2>Lumpsum Investment Calculator</h2>
 
       <div className="slider-group">
-        <label>Investment Amount: {symbol}{investment.toLocaleString()}</label>
+        <label>
+          Investment Amount: {symbol}
+          {investment.toLocaleString()}
+        </label>
         <input
           type="range"
           min="1000"
@@ -91,9 +89,18 @@ function LumpsumCalculator({ currency }) {
 
       <div className="result">
         <h3>Expected Returns</h3>
-        <p>Total Amount: {symbol}{finalAmount.toFixed(2).toLocaleString()}</p>
-        <p>Invested Amount: {symbol}{investment.toLocaleString()}</p>
-        <p>Profit Gained: {symbol}{gain.toFixed(2).toLocaleString()}</p>
+        <p>
+          Total Amount: {symbol}
+          {finalAmount.toFixed(2).toLocaleString()}
+        </p>
+        <p>
+          Invested Amount: {symbol}
+          {investment.toLocaleString()}
+        </p>
+        <p>
+          Profit Gained: {symbol}
+          {gain.toFixed(2).toLocaleString()}
+        </p>
 
         <div className="result-chart">
           <Doughnut

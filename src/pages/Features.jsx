@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetchCoins } from "../services/cryptoAPI";
 import CalculatorTabs from "../components/CalculatorTabs";
-// import SIPCalculator from "../components/calculators/SIPCalculator";
-// import LumpsumCalculator from "../components/calculators/LumpsumCalculator";
 
 const Features = ({ currency }) => {
   const [coins, setCoins] = useState([]);
